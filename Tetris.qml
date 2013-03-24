@@ -26,15 +26,20 @@ MainView {
     }
 
     function spawnBlock() {
-        var array=[Qt.point(1,3), Qt.point(4,5)]
-        // TODO: Get blocks to change, assign to array.
+        var block;
+        var component = Qt.createComponent("O.qml");
+        if (component.status === Component.Ready)
+            block = component.createObject(root);
+        else
+            component.statusChanged.connect(block = component.createObject(root));
+
+        var array = block.shape;
+
         for (var i in array) {
-            var xval = (array[i].x)
-            var yval = (array[i].y)
-            print(xval)
-            print(yval)
-            var index=(xval-1)*10 + yval-1
-            matrix.itemAt(index).color="yellow"
+            var xval = (array[i].x);
+            var yval = (array[i].y);
+            var index = (xval-1)*10 + yval-1;
+            matrix.itemAt(index).color="yellow";
         }
     }
 }
