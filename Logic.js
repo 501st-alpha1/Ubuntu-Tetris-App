@@ -6,7 +6,8 @@ function finishObject() {
 }
 
 function spawnBlock() {
-    var blocks = ["O.qml", "I.qml"];
+    var blocks = ["O.qml", "I.qml", "T.qml", "L.qml", "J.qml", "S.qml",
+                  "Z.qml"];
     var i = Math.floor(Math.random() * blocks.length);
     component = Qt.createComponent(blocks[i]);
     if (component.status === Component.Ready)
@@ -20,6 +21,6 @@ function spawnBlock() {
         var xval = (array[j].x);
         var yval = (array[j].y);
         var index = (xval-1)*10 + yval-1;
-        matrix.itemAt(index).color="yellow";
+        matrix.itemAt(index).color=block.color;
     }
 }

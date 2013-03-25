@@ -20,7 +20,7 @@ MainView {
     }
 
     Timer {
-        interval: 5000
+        interval: 2000
         running: true
         repeat: false
         onTriggered: Logic.spawnBlock()
