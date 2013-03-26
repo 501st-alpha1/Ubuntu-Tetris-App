@@ -11,11 +11,35 @@ MainView {
 
     Grid {
         columns: 10
+        focus: true
 
         Repeater {
             id: matrix
             model: 200
             MatrixSquare {}
+        }
+
+        Keys.onPressed: {
+            if (event.key === Qt.Key_Left) {
+                print("Move left");
+                event.accepted = true;
+            }
+            else if (event.key === Qt.Key_Right) {
+                print("Move right");
+                event.accepted = true;
+            }
+            else if (event.key === Qt.Key_Down) {
+                print("Speed up");
+                event.accepted = true;
+            }
+            else if (event.key === Qt.Key_Up) {
+                print("Insta-drop");
+                event.accepted = true;
+            }
+            else if (event.key === Qt.Key_Space) {
+                print("Rotate");
+                event.accepted = true;
+            }
         }
     }
 
