@@ -22,5 +22,32 @@ function spawnBlock() {
         var yval = (array[j].y);
         var index = (xval-1)*10 + yval-1;
         matrix.itemAt(index).color=block.color;
+        matrix.itemAt(index).occupied=true;
+    }
+}
+
+function gravity() {
+    // TODO: determine which blocks should be allowed to fall.
+    var validBlocks = matrix;
+
+    for (var i = validBlocks.count - 1; i >= 0; i--) {
+        if (validBlocks.itemAt(i) === undefined) {
+            continue;
+        }
+
+        var square = validBlocks.itemAt(i);
+        var newSquare = validBlocks.itemAt(i + 10);
+
+        if (square.occupied) {
+            square.occupied = false;
+            if (newSquare.occupied) {
+                print("Overwriting block!");
+            }
+            else {
+                newSquare.occupied = true;
+            }
+            newSquare.color = square.color;
+            square.color = "black";
+        }
     }
 }

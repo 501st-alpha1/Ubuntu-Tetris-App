@@ -40,13 +40,17 @@ MainView {
                 print("Rotate");
                 event.accepted = true;
             }
+            else if (event.key === Qt.Key_Return) {
+                Logic.spawnBlock();
+                event.accepted = true;
+            }
         }
     }
 
     Timer {
         interval: 2000
         running: true
-        repeat: false
-        onTriggered: Logic.spawnBlock()
+        repeat: true
+        onTriggered: Logic.gravity();
     }
 }
