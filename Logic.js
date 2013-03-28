@@ -40,13 +40,20 @@ function gravity() {
 
         if (square.occupied) {
             square.occupied = false;
-            if (newSquare.occupied) {
-                print("Overwriting block!");
+
+            if (newSquare !== null) {
+                if (newSquare.occupied) {
+                    print("Overwriting block!");
+                }
+                else {
+                    newSquare.occupied = true;
+                }
+                newSquare.color = square.color;
             }
             else {
-                newSquare.occupied = true;
+                print("Falling off the board!");
             }
-            newSquare.color = square.color;
+
             square.color = "black";
         }
     }
