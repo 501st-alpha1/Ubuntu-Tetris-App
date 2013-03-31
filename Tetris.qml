@@ -12,6 +12,8 @@ MainView {
     Grid {
         columns: 10
         focus: true
+        id: grid
+        property Piece currentPiece
 
         Repeater {
             id: matrix
@@ -22,10 +24,12 @@ MainView {
         Keys.onPressed: {
             if (event.key === Qt.Key_Left) {
                 print("Move left");
+                currentPiece.moveLeft();
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Right) {
                 print("Move right");
+                currentPiece.moveRight();
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Down) {

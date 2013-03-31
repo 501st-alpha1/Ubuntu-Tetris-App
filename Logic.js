@@ -6,6 +6,10 @@ function finishObject() {
 }
 
 function spawnBlock() {
+    if (block !== undefined) {
+        block.isCurrent = false;
+    }
+
     var blocks = ["O.qml", "I.qml", "T.qml", "L.qml", "J.qml", "S.qml",
                   "Z.qml"];
     var i = Math.floor(Math.random() * blocks.length);
@@ -14,6 +18,9 @@ function spawnBlock() {
         finishObject()
     else
         component.statusChanged.connect(finishObject);
+
+    block.isCurrent = true;
+    grid.currentPiece = block;
 
     var array = block.shape;
 
