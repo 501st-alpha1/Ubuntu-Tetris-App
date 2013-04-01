@@ -4,7 +4,6 @@ Rectangle {
     color: "black"
     property var shape
     property point pos
-    property bool isCurrent: false
 
     function moveLeft() {
         var array = shape;

@@ -14,6 +14,8 @@ MainView {
         focus: true
         id: grid
         property Piece currentPiece
+        property Piece mainChunk
+        property var brokenChunks
 
         Repeater {
             id: matrix
