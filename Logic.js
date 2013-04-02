@@ -33,11 +33,23 @@ function gravity() {
     var validBlocks = matrix;
 
     for (var i = validBlocks.count - 1; i >= 0; i--) {
-        if (validBlocks.itemAt(i) === undefined) {
+        var square = validBlocks.itemAt(i);
+        if (square === undefined) {
             continue;
         }
 
-        var square = validBlocks.itemAt(i);
+        if (grid.currentPiece !== null) {
+            for (var j in grid.currentPiece.shape) {
+                if (j.x === square.x && j.y === square.y) {
+                    (j.y)++;
+                    break;
+                }
+                else {
+                    continue;
+                }
+            }
+        }
+
         var newSquare = validBlocks.itemAt(i + 10);
 
         if (square.occupied) {
