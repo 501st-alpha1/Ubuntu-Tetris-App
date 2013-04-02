@@ -17,7 +17,8 @@ Rectangle {
             }
         }
 
-        shape = array;
+        redraw(array);
+
         return true;
     }
 
@@ -33,7 +34,30 @@ Rectangle {
             }
         }
 
-        shape = array;
+        redraw(array);
+
         return true;
+    }
+
+    function redraw(array) {
+        for (var j in array) {
+            var xval = (array[j].x);
+            var yval = (array[j].y);
+
+            var idx = shape.indexOf(Qt.point(xval, yval))
+
+            if (idx === -1) {
+                print("you lose!");
+            }
+            else {
+                print(idx);
+            }
+
+            var index = (xval-1)*10 + yval-1;
+            matrix.itemAt(index).color=color;
+            matrix.itemAt(index).occupied=true;
+        }
+
+        shape = array;
     }
 }
