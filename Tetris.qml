@@ -6,8 +6,8 @@ MainView {
     applicationName: "Tetris"
     id: root
 
-    width: units.gu(50)
-    height: units.gu(90)
+    width: units.gu(40)
+    height: units.gu(80)
 
     Grid {
         columns: 10
@@ -26,12 +26,14 @@ MainView {
         Keys.onPressed: {
             if (event.key === Qt.Key_Left) {
                 print("Move left");
-                currentPiece.moveLeft();
+                if (currentPiece !== null)
+                    currentPiece.moveLeft();
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Right) {
                 print("Move right");
-                currentPiece.moveRight();
+                if (currentPiece !== null)
+                    currentPiece.moveRight();
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Down) {
