@@ -2,6 +2,6 @@ import QtQuick 2.0
 
 Piece {
     color: "orange"
-    shape: [Qt.point(1,5), Qt.point(2,5), Qt.point(3,5), Qt.point(3,6)]
-    pos: Qt.point(1,5)
+    shape: [Qt.point(5,1), Qt.point(5,2), Qt.point(5,3), Qt.point(6,3)]
+    pos: Qt.point(5,1)
 }

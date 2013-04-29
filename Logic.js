@@ -1,6 +1,10 @@
 var block;
 var component
 
+function getIndex(x, y) {
+    return (y-1)*10 + x-1;
+}
+
 function finishObject() {
     block = component.createObject(root);
 }
@@ -22,7 +26,7 @@ function spawnBlock() {
     for (var j in array) {
         var xval = (array[j].x);
         var yval = (array[j].y);
-        var index = (xval-1)*10 + yval-1;
+        var index = getIndex(xval, yval);
         matrix.itemAt(index).color=block.color;
         matrix.itemAt(index).occupied=true;
     }
