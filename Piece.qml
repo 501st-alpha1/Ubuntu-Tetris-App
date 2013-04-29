@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import "Logic.js" as Logic
 
 Rectangle {
     color: "black"
@@ -6,13 +7,16 @@ Rectangle {
     property point pos
 
     function moveLeft() {
-        var array = shape;
+        var array = new Array(shape.length);
 
-        for (var i in array) {
-            if (array[i].x > 1) {
-                array[i].x--;
+        for (var i = 0; i < shape.length; i++) {
+            var xval = shape[i].x;
+            var yval = shape[i].y;
+            if (xval > 1) {
+                array[i] = Qt.point(--xval, yval);
             }
             else {
+                //Edge of board, do nothing.
                 return false;
             }
         }
@@ -23,13 +27,16 @@ Rectangle {
     }
 
     function moveRight() {
-        var array = shape;
+        var array = new Array(shape.length);
 
-        for (var i in array) {
-            if (array[i].x < 10) {
-                array[i].x++;
+        for (var i = 0; i < shape.length; i++) {
+            var xval = shape[i].x;
+            var yval = shape[i].y;
+            if (xval < 10) {
+                array[i] = Qt.point(++xval, yval);
             }
             else {
+                //Edge of board, do nothing.
                 return false;
             }
         }
@@ -40,20 +47,20 @@ Rectangle {
     }
 
     function redraw(array) {
-        for (var j in array) {
-            var xval = (array[j].x);
-            var yval = (array[j].y);
-
-            var idx = shape.indexOf(Qt.point(xval, yval))
-
-            if (idx === -1) {
-                print("you lose!");
-            }
-            else {
-                print(idx);
+        for (var i = 0; i < shape.length; i++) {
+            var xval = (shape[i].x);
+            var yval = (shape[i].y);
+            var index = Logic.getIndex(xval, yval);
+            var square = matrix.itemAt(index);
+            if (array.indexOf(Qt.point(xval, yval)) === -1) {
+                square.color="black"
+                square.occupied=false;
             }
 
-            var index = (xval-1)*10 + yval-1;
+            xval = (array[i].x);
+            yval = (array[i].y);
+            index = Logic.getIndex(xval, yval);
+            square = matrix.itemAt(index);
             matrix.itemAt(index).color=color;
             matrix.itemAt(index).occupied=true;
         }

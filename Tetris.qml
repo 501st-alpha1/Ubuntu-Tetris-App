@@ -20,18 +20,16 @@ MainView {
         Repeater {
             id: matrix
             model: 200
-            MatrixSquare {}
+            MatrixSquare { idx: index }
         }
 
         Keys.onPressed: {
             if (event.key === Qt.Key_Left) {
-                print("Move left");
                 if (currentPiece !== null)
                     currentPiece.moveLeft();
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Right) {
-                print("Move right");
                 if (currentPiece !== null)
                     currentPiece.moveRight();
                 event.accepted = true;

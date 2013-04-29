@@ -5,6 +5,14 @@ function getIndex(x, y) {
     return (y-1)*10 + x-1;
 }
 
+function getX(index) {
+    return (index%10)+1;
+}
+
+function getY(index) {
+    return Math.floor(index/10)+1;
+}
+
 function finishObject() {
     block = component.createObject(root);
 }
@@ -41,17 +49,22 @@ function gravity() {
         if (square === undefined) {
             continue;
         }
+        var squareX = getX(square.idx);
+        var squareY = getY(square.idx);
 
         if (grid.currentPiece !== null) {
-            for (var j in grid.currentPiece.shape) {
-                if (j.x === square.x && j.y === square.y) {
-                    (j.y)++;
-                    break;
+            var shape = grid.currentPiece.shape;
+            var newshape = new Array(shape.length);
+            for (var j = 0; j < shape.length; j++) {
+                var point = shape[j];
+                if (point.x === squareX && point.y === squareY) {
+                    newshape[j] = Qt.point(point.x, ++point.y);
                 }
                 else {
-                    continue;
+                    newshape[j] = point;
                 }
             }
+            grid.currentPiece.shape = newshape;
         }
 
         var newSquare = validBlocks.itemAt(i + 10);

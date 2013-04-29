@@ -6,4 +6,5 @@ Rectangle {
     color: "black"
     border.color: "white"
     property bool occupied: false
+    property int idx: 0
 }
