@@ -7,4 +7,5 @@ Rectangle {
     border.color: "white"
     property bool occupied: false
     property int idx: 0
+    property bool gravity: true
 }

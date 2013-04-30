@@ -40,12 +40,44 @@ function spawnBlock() {
     }
 }
 
-function gravity() {
-    // TODO: determine which blocks should be allowed to fall.
-    var validBlocks = matrix;
+function recursiveGravityCheck(square) {
+    var index = square.idx;
+    var left = matrix.itemAt(index - 1);
+    var right = matrix.itemAt(index + 1);
+    var up = matrix.itemAt(index - 10);
 
-    for (var i = validBlocks.count - 1; i >= 0; i--) {
-        var square = validBlocks.itemAt(i);
+    square.gravity = false;
+
+    if (left !== null && left.occupied && left.gravity)
+        recursiveGravityCheck(left)
+    if (right !== null && right.occupied && right.gravity)
+        recursiveGravityCheck(right)
+    if (up !== null && up.occupied && up.gravity)
+        recursiveGravityCheck(up)
+}
+
+function gravity() {
+    //Reset gravity
+    for (var m = 0; m < 200; m++) {
+        matrix.itemAt(m).gravity = true;
+    }
+
+    for (var k = 0; k < 10; k++) {
+        var index = getIndex(k+1, 20);
+        recursiveGravityCheck(matrix.itemAt(index));
+    }
+
+    var validBlocks = new Array(0);
+    for (var l = 0; l < 200; l++) {
+        var temp = matrix.itemAt(l);
+        if (temp.occupied && temp.gravity) {
+            validBlocks.push(temp);
+        }
+    }
+
+    //for (var i = validBlocks.count - 1; i >= 0; i--) {
+    while (validBlocks.length > 0) {
+        var square = validBlocks.pop();
         if (square === undefined) {
             continue;
         }
@@ -67,7 +99,7 @@ function gravity() {
             grid.currentPiece.shape = newshape;
         }
 
-        var newSquare = validBlocks.itemAt(i + 10);
+        var newSquare = matrix.itemAt(square.idx + 10);
 
         if (square.occupied) {
             square.occupied = false;
