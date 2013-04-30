@@ -41,6 +41,9 @@ function spawnBlock() {
 }
 
 function recursiveGravityCheck(square) {
+    if (!square.occupied)
+        return
+
     var index = square.idx;
     var left = matrix.itemAt(index - 1);
     var right = matrix.itemAt(index + 1);
@@ -48,11 +51,11 @@ function recursiveGravityCheck(square) {
 
     square.gravity = false;
 
-    if (left !== null && left.occupied && left.gravity)
+    if (left !== null && left.gravity)
         recursiveGravityCheck(left)
-    if (right !== null && right.occupied && right.gravity)
+    if (right !== null && right.gravity)
         recursiveGravityCheck(right)
-    if (up !== null && up.occupied && up.gravity)
+    if (up !== null && up.gravity)
         recursiveGravityCheck(up)
 }
 
