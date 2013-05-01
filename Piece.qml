@@ -4,6 +4,7 @@ import "Logic.js" as Logic
 Rectangle {
     color: "black"
     property var shape
+    property var centerIdx
     property point pos
 
     function moveLeft() {
@@ -44,6 +45,25 @@ Rectangle {
         redraw(array);
 
         return true;
+    }
+
+    function rotate() {
+        var newshape = new Array(0);
+        for (var i = 0; i < shape.length; i++) {
+            if (i === centerIdx) {
+                newshape.push(shape[centerIdx]);
+                continue;
+            }
+            var diffx = shape[i].x - shape[centerIdx].x;
+            var diffy = shape[i].y - shape[centerIdx].y;
+
+            var changex = (diffy === 0) ? diffy : -diffy;
+            var changey = (diffx === 0) ? -diffx : diffx;
+
+            newshape.push(Qt.point(shape[centerIdx].x + changex, shape[centerIdx].y + changey));
+        }
+
+        redraw(newshape);
     }
 
     function redraw(array) {

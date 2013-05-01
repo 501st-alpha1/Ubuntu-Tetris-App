@@ -43,7 +43,8 @@ MainView {
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Space) {
-                print("Rotate");
+                if (currentPiece !== null)
+                    currentPiece.rotate();
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Return) {
