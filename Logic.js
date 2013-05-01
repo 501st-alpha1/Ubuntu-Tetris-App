@@ -40,6 +40,19 @@ function spawnBlock() {
     }
 }
 
+function isCurrentPiece(index) {
+    if (grid.currentPiece !== null) {
+        var shape = grid.currentPiece.shape;
+        for (var i = 0; i < shape.length; i++) {
+            var point = shape[i];
+            if (point.x === getX(index) && point.y === getY(index)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function recursiveGravityCheck(square) {
     if (!square.occupied)
         return
@@ -48,15 +61,23 @@ function recursiveGravityCheck(square) {
     var left = matrix.itemAt(index - 1);
     var right = matrix.itemAt(index + 1);
     var up = matrix.itemAt(index - 10);
+    var down = matrix.itemAt(index + 10);
 
     square.gravity = false;
 
-    if (left !== null && left.gravity)
-        recursiveGravityCheck(left)
-    if (right !== null && right.gravity)
-        recursiveGravityCheck(right)
-    if (up !== null && up.gravity)
-        recursiveGravityCheck(up)
+    var isCurrPiece = isCurrentPiece(index);
+
+    if (left !== null && left.gravity && !isCurrPiece)
+        recursiveGravityCheck(left);
+    if (right !== null && right.gravity && !isCurrPiece)
+        recursiveGravityCheck(right);
+    if (up !== null && up.gravity) {
+        if (isCurrentPiece(index - 10))
+            grid.currentPiece = null;
+        recursiveGravityCheck(up);
+    }
+    if (down !== null && down.gravity && !isCurrPiece)
+        recursiveGravityCheck(down);
 }
 
 function gravity() {
@@ -90,16 +111,20 @@ function gravity() {
         if (grid.currentPiece !== null) {
             var shape = grid.currentPiece.shape;
             var newshape = new Array(shape.length);
-            for (var j = 0; j < shape.length; j++) {
-                var point = shape[j];
-                if (point.x === squareX && point.y === squareY) {
-                    newshape[j] = Qt.point(point.x, ++point.y);
+
+            if (isCurrentPiece(square.idx)) {
+                for (var j = 0; j < shape.length; j++) {
+                    var point = shape[j];
+                    var idx = getIndex(point.x, point.y);
+                    if (square.idx === idx) {
+                        newshape[j] = Qt.point(point.x, ++point.y);
+                    }
+                    else {
+                        newshape[j] = point;
+                    }
                 }
-                else {
-                    newshape[j] = point;
-                }
+                grid.currentPiece.shape = newshape;
             }
-            grid.currentPiece.shape = newshape;
         }
 
         var newSquare = matrix.itemAt(square.idx + 10);
