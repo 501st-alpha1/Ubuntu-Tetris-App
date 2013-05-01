@@ -35,7 +35,7 @@ MainView {
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Down) {
-                print("Speed up");
+                Logic.gravity();
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Up) {
