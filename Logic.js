@@ -65,19 +65,20 @@ function recursiveGravityCheck(square) {
 
     square.gravity = false;
 
-    var isCurrPiece = isCurrentPiece(index);
-
-    if (left !== null && left.gravity && !isCurrPiece)
+    if (left !== null && left.gravity && !isCurrentPiece(index-1)) {
         recursiveGravityCheck(left);
-    if (right !== null && right.gravity && !isCurrPiece)
+    }
+    if (right !== null && right.gravity && !isCurrentPiece(index+1)) {
         recursiveGravityCheck(right);
+    }
     if (up !== null && up.gravity) {
         if (isCurrentPiece(index - 10))
             grid.currentPiece = null;
         recursiveGravityCheck(up);
     }
-    if (down !== null && down.gravity && !isCurrPiece)
+    if (down !== null && down.gravity && !isCurrentPiece(index+10)) {
         recursiveGravityCheck(down);
+    }
 }
 
 function gravity() {
