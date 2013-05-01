@@ -81,7 +81,18 @@ function recursiveGravityCheck(square) {
     }
 }
 
+function instaDrop() {
+    while (grid.currentPiece !== null) {
+        gravity();
+    }
+}
+
 function gravity() {
+    if (grid.currentPiece === null) {
+        spawnBlock();
+        return;
+    }
+
     //Reset gravity
     for (var m = 0; m < 200; m++) {
         matrix.itemAt(m).gravity = true;
@@ -109,23 +120,21 @@ function gravity() {
         var squareX = getX(square.idx);
         var squareY = getY(square.idx);
 
-        if (grid.currentPiece !== null) {
-            var shape = grid.currentPiece.shape;
-            var newshape = new Array(shape.length);
+        var shape = grid.currentPiece.shape;
+        var newshape = new Array(shape.length);
 
-            if (isCurrentPiece(square.idx)) {
-                for (var j = 0; j < shape.length; j++) {
-                    var point = shape[j];
-                    var idx = getIndex(point.x, point.y);
-                    if (square.idx === idx) {
-                        newshape[j] = Qt.point(point.x, ++point.y);
-                    }
-                    else {
-                        newshape[j] = point;
-                    }
+        if (isCurrentPiece(square.idx)) {
+            for (var j = 0; j < shape.length; j++) {
+                var point = shape[j];
+                var idx = getIndex(point.x, point.y);
+                if (square.idx === idx) {
+                    newshape[j] = Qt.point(point.x, ++point.y);
                 }
-                grid.currentPiece.shape = newshape;
+                else {
+                    newshape[j] = point;
+                }
             }
+            grid.currentPiece.shape = newshape;
         }
 
         var newSquare = matrix.itemAt(square.idx + 10);

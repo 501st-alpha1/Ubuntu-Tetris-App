@@ -39,7 +39,7 @@ MainView {
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Up) {
-                print("Insta-drop");
+                Logic.instaDrop();
                 event.accepted = true;
             }
             else if (event.key === Qt.Key_Space) {
@@ -47,15 +47,12 @@ MainView {
                     currentPiece.rotate();
                 event.accepted = true;
             }
-            else if (event.key === Qt.Key_Return) {
-                Logic.spawnBlock();
-                event.accepted = true;
-            }
         }
     }
 
     Timer {
-        interval: 2000
+        id: timer
+        interval: 1000
         running: true
         repeat: true
         onTriggered: Logic.gravity();
