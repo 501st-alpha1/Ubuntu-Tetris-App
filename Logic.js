@@ -1,5 +1,5 @@
 var block;
-var component
+var component;
 
 function getIndex(x, y) {
     return (y-1)*10 + x-1;
@@ -31,13 +31,23 @@ function spawnBlock() {
 
     var array = block.shape;
 
+    var quit = false;
     for (var j in array) {
         var xval = (array[j].x);
         var yval = (array[j].y);
         var index = getIndex(xval, yval);
-        matrix.itemAt(index).color=block.color;
-        matrix.itemAt(index).occupied=true;
+        var square = matrix.itemAt(index);
+
+        if (square.occupied) {
+            print("You lose!");
+            quit = true;
+            break;
+        }
+
+        square.color=block.color;
+        square.occupied=true;
     }
+    if (quit) Qt.quit();
 }
 
 function isCurrentPiece(index) {
