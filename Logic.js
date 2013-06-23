@@ -167,4 +167,37 @@ function gravity() {
             square.color = "black";
         }
     }
+
+    clearLineCheck();
+}
+
+function clearLineCheck() {
+    for (var i = 0; i < 20; i++) {
+        var full = true;
+        for (var j = 0; j < 10; j++) {
+            var index = getIndex(j+1, i+1);
+
+            if (isCurrentPiece(index)) {
+                full = false;
+                break;
+            }
+
+            if (!matrix.itemAt(index).occupied) {
+                full = false;
+                break;
+            }
+        }
+
+        if (full) {
+            setLineColor(i+1, "black");
+        }
+    }
+}
+
+function setLineColor(line, color) {
+    for (var i = 1; i < 11; i++) {
+        var index = getIndex(i, line);
+        matrix.itemAt(index).occupied = false;
+        matrix.itemAt(index).color = color;
+    }
 }
