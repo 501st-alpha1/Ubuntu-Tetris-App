@@ -40,14 +40,13 @@ function spawnBlock() {
 
         if (square.occupied) {
             print("You lose!");
-            quit = true;
+            Qt.quit();
             break;
         }
 
         square.color=block.color;
         square.occupied=true;
     }
-    if (quit) Qt.quit();
 }
 
 function isCurrentPiece(index) {
