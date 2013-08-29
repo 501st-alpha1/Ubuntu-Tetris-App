@@ -1,0 +1,11 @@
+import QmlProject 1.0
+
+Project {
+    QmlFiles {
+        directory: "."
+    }
+    JavaScriptFiles {
+        directory: "."
+    }
+    importPaths: [ "/opt/qt5/imports" ]
+}
